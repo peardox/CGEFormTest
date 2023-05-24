@@ -15,4 +15,4 @@ If a TCastleControl is present on the form a set of GREEN axis lines is drawn
 
 If a TCastleControl is _not_ present on the form a set of RED axis lines is drawn
 
-![](C:\work\cge\CGEFormTest\img\sample.png)
+![](img\sample.png)
