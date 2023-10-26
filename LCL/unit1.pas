@@ -1,16 +1,20 @@
 unit Unit1;
 
+{$mode objfpc}{$H+}
+
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.CastleControl, CastleUIControls, CastleVectors, CastleGLUtils, CastleColors,
-  Vcl.StdCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, CastleControl,
+  CastleUIControls, CastleVectors, CastleGLUtils, CastleColors;
 
 type
   TCastleApp = class(TCastleView)
     procedure Render; override; // TCastleUserInterface
   end;
+
+  { TForm1 }
+  TCastleControlArray = Array of TCastleControl;
 
   TForm1 = class(TForm)
     CastleControl1: TCastleControl;
@@ -19,7 +23,7 @@ type
     { Private declarations }
     GLWin: TCastleControl;
     GLView: TCastleApp;
-    function FindCastleControls(o: TObject): TArray<TCastleControl>;
+    function FindCastleControls(o: TObject): TCastleControlArray;
   public
     { Public declarations }
   end;
@@ -30,13 +34,13 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
-uses System.Generics.Collections;
+{ TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  c: TArray<TCastleControl>;
+  c: TCastleControlArray;
 begin
   IsCastleControlOnForm := True;
   c := FindCastleControls(Self);
@@ -49,7 +53,7 @@ begin
     GLWin := c[0];
 
   GLWin.Parent := Form1;
-  GLWin.Align := alClient;
+  GLWin.Align := TAlign.alClient;
   GLView := TCastleApp.Create(GLWin);
   GLWin.Container.View := GLView;
 end;
@@ -70,11 +74,11 @@ begin
     DrawPrimitive2D(pmLines, Points, Red);
 end;
 
-function TForm1.FindCastleControls(o: TObject): TArray<TCastleControl>;
+function TForm1.FindCastleControls(o: TObject): TCastleControlArray;
 var
   i: Integer;
 begin
-  Result := TArray<TCastleControl>.Create();
+  Result := [];
   for i:= 0 to ComponentCount - 1 do
     begin
       if Components[i] is TCastleControl then
@@ -87,4 +91,6 @@ begin
 
 end;
 
+
 end.
+

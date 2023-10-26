@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, fmx.castlecontrol, CastleUIControls, CastleVectors,
-  CastleGLUtils, CastleColors;
+  CastleGLUtils, CastleColors, FMX.StdCtrls;
 
 type
   TCastleApp = class(TCastleView)
@@ -79,7 +79,7 @@ begin
       if Components[i] is TCastleControl then
         begin
           SetLength(Result, Length(Result) + 1);
-          Result[i] := TCastleControl(Components[Length(Result) - 1]);
+          Result[Length(Result) - 1] := TCastleControl(Components[i]);
         end;
 
     end;
